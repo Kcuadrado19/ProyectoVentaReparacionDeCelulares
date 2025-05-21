@@ -20,7 +20,7 @@ namespace ProyectoVentaReparacionDeCelulares
                 defaults: new { id = RouteParameter.Optional }
             );
 
-
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             // *********** NUEVO BLOQUE ***********
             var json = config.Formatters.JsonFormatter.SerializerSettings;
             // 1) Ignorar propiedades null
