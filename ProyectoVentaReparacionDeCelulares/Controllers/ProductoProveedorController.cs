@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using ProyectoVentaReparacionDeCelulares.Interface;
+using ProyectoVentaReparacionDeCelulares.Models;
+using ProyectoVentaReparacionDeCelulares.Services;
+
+namespace ProyectoVentaReparacionDeCelulares.Controllers
+{
+    [RoutePrefix("api/proveedores/{provId:int}/productos")]
+    public class ProductoProveedorController : ApiController
+    {
+        private readonly IProductoProveedorService _srv = new ProductoProveedorService();
+
+        // GET api/proveedores/3/productos
+        [HttpGet, Route("")]
+        public IEnumerable<ProductoProveedor> Get(int provId) =>
+            _srv.GetByProveedor(provId);
+
+        // GET api/proveedores/3/productos/5
+        [HttpGet, Route("{id:int}")]
+        public IHttpActionResult GetById(int provId, int id)
+        {
+            var p = _srv.GetByProveedor(provId)
+                        .FirstOrDefault(x => x.id_producto_proveedor == id);
+            if (p == null) return NotFound();
+            return Ok(p);
+        }
+
+        // POST api/proveedores/3/productos
+        [HttpPost, Route("")]
+        public IHttpActionResult Create(int provId, ProductoProveedor p)
+        {
+            p.id_usuario_proveedor = provId;
+            var created = _srv.Create(p);
+            return Created("", created);
+        }
+
+        // PUT api/proveedores/3/productos/5
+        [HttpPut, Route("{id:int}")]
+        public IHttpActionResult Update(int provId, int id, ProductoProveedor p)
+        {
+            if (id != p.id_producto_proveedor ||
+                provId != p.id_usuario_proveedor)
+                return BadRequest();
+
+            _srv.Update(p);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // DELETE api/proveedores/3/productos/5
+        [HttpDelete, Route("{id:int}")]
+        public IHttpActionResult Delete(int provId, int id)
+        {
+            if (!_srv.Delete(id)) return NotFound();
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+    }
+}

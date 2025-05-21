@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8e6fbdcf95eb458fa33c282be01b05f6" Name="Diagram1">
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Ciudad" Width="1.5" PointX="1.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.DetallePedidoProveedor" Width="1.5" PointX="8.25" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.DetalleReparacion" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.DetalleVentaMarketplace" Width="1.5" PointX="5.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Envio" Width="1.5" PointX="5.25" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.FacturaCompra" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.FacturaMarketplace" Width="1.5" PointX="5.25" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Garantia" Width="1.5" PointX="8.25" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.ImportacionProducto" Width="1.5" PointX="5.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.MetodoPago" Width="1.5" PointX="6" PointY="41.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.MovimientoStock" Width="1.5" PointX="5.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.PagoVenta" Width="1.5" PointX="8.25" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Pai" Width="1.5" PointX="1.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.PedidoProveedor" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.ProductoProveedor" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Sede" Width="1.5" PointX="3.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.ServicioReparacion" Width="1.5" PointX="6" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.SoporteCliente" Width="1.5" PointX="3" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Tecnico" Width="1.5" PointX="6" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.Usuario" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentaYReparacionDeCelulares1Model.VentaMarketplace" Width="1.5" PointX="3" PointY="35.625" IsExpanded="true" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Ciudad__id_pais__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Sede__id_ciudad__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__DetallePe__id_pe__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__DetallePe__id_pr__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__DetalleRe__id_re__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__DetalleRe__id_te__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__DetalleVe__id_pr__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__DetalleVe__id_ve__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Envio__id_venta__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__FacturaCo__id_pe__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__FacturaCo__id_us__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__FacturaMa__id_ve__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Garantia__id_pro__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Garantia__id_ven__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Importaci__id_pr__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__PagoVenta__id_me__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Movimient__id_pr__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__Movimient__id_us__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__PagoVenta__id_ve__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__PedidoPro__id_us__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__PedidoPro__id_us__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__ProductoP__id_us__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__ServicioR__id_se__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__ServicioR__id_us__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__ServicioR__id_us__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__SoporteCl__id_us__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="VentaYReparacionDeCelulares1Model.FK__VentaMark__id_us__48CFD27E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
