@@ -11,5 +11,7 @@ namespace ProyectoVentaReparacionDeCelulares.Interface
         IEnumerable<VentaMarketplace> GetAll();
         VentaMarketplace Get(int id);
         VentaMarketplace Create(VentaMarketplace v);
+        VentaMarketplace Update(VentaMarketplace v);   
+        bool Delete(int id);                          
     }
 }

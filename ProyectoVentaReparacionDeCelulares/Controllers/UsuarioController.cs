@@ -35,19 +35,31 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
                 created);
         }
 
+
+
         [HttpPut, Route("{id:int}")]
-        public IHttpActionResult Update(int id, Usuario u)
-        {
-            if (id != u.id_usuario) return BadRequest();
-            _srv.Update(u);
-            return StatusCode(System.Net.HttpStatusCode.NoContent);
-        }
+       public IHttpActionResult Update(int id, Usuario u)
+       {
+          if (id != u.id_usuario) 
+              return BadRequest();
+
+           _srv.Update(u);
+           return Ok(new { message = "Usuario actualizado con éxito" });   
+       }
+
+
 
         [HttpDelete, Route("{id:int}")]
-        public IHttpActionResult Delete(int id)
-        {
-            if (!_srv.Delete(id)) return NotFound();
-            return StatusCode(System.Net.HttpStatusCode.NoContent);
-        }
+       public IHttpActionResult Delete(int id)
+       {
+           if (!_srv.Delete(id)) 
+               return NotFound();
+
+           return Ok(new { message = "Usuario eliminado correctamente" });
+       }
+
+
+
+
     }
 }

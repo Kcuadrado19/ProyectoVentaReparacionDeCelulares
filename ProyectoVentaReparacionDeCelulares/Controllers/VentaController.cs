@@ -35,5 +35,30 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
             var created = _srv.Create(v);
             return Created("", created);
         }
+
+
+        [HttpPut, Route("{id:int}")]
+        public IHttpActionResult Update(int id, VentaMarketplace v)
+        {
+            if (id != v.id_venta)
+                return BadRequest();
+
+            _srv.Update(v);
+            
+            return Ok(new { message = "Venta actualizada con éxito" });
+        }
+
+        // DELETE api/ventas/{id}
+        [HttpDelete, Route("{id:int}")]
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_srv.Delete(id))
+                return NotFound();
+
+            
+            return Ok(new { message = "Venta eliminada correctamente" });
+        }
+
+
     }
 }

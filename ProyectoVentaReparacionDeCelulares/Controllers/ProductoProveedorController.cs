@@ -15,12 +15,12 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
     {
         private readonly IProductoProveedorService _srv = new ProductoProveedorService();
 
-        // GET api/proveedores/3/productos
+      
         [HttpGet, Route("")]
         public IEnumerable<ProductoProveedor> Get(int provId) =>
             _srv.GetByProveedor(provId);
 
-        // GET api/proveedores/3/productos/5
+        
         [HttpGet, Route("{id:int}")]
         public IHttpActionResult GetById(int provId, int id)
         {
@@ -30,7 +30,7 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
             return Ok(p);
         }
 
-        // POST api/proveedores/3/productos
+        
         [HttpPost, Route("")]
         public IHttpActionResult Create(int provId, ProductoProveedor p)
         {
@@ -39,24 +39,29 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
             return Created("", created);
         }
 
-        // PUT api/proveedores/3/productos/5
+
+
+        
         [HttpPut, Route("{id:int}")]
-        public IHttpActionResult Update(int provId, int id, ProductoProveedor p)
+       public IHttpActionResult Update(int provId, int id, ProductoProveedor p)
         {
-            if (id != p.id_producto_proveedor ||
-                provId != p.id_usuario_proveedor)
-                return BadRequest();
+           if (id != p.id_producto_proveedor || provId != p.id_usuario_proveedor)
+               return BadRequest();
 
-            _srv.Update(p);
-            return StatusCode(HttpStatusCode.NoContent);
+           _srv.Update(p);
+          return Ok(new { message = "Producto actualizado con éxito" });
         }
 
-        // DELETE api/proveedores/3/productos/5
+
+
+
         [HttpDelete, Route("{id:int}")]
-        public IHttpActionResult Delete(int provId, int id)
-        {
-            if (!_srv.Delete(id)) return NotFound();
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+       public IHttpActionResult Delete(int provId, int id)
+       {
+            if (!_srv.Delete(id))
+               return NotFound();
+
+           return Ok(new { message = "Producto eliminado correctamente" });
+       }
     }
 }
