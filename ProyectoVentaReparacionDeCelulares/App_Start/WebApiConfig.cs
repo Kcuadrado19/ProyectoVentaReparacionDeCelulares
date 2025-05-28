@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using ProyectoVentaReparacionDeCelulares.Clases;
 
 namespace ProyectoVentaReparacionDeCelulares
 {
@@ -11,8 +12,12 @@ namespace ProyectoVentaReparacionDeCelulares
         {
             // Configuración y servicios de Web API
 
+            config.MessageHandlers.Add(new TokenValidationHandler());
+
+
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
+          
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
