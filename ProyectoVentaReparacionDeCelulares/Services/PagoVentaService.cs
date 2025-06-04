@@ -26,10 +26,14 @@ namespace ProyectoVentaReparacionDeCelulares.Services
 
         public PagoVenta Update(PagoVenta pago)
         {
-            _ctx.Entry(pago).State = System.Data.Entity.EntityState.Modified;
+            var existing = _ctx.PagoVentas.Find(pago.id_pago);
+            if (existing == null) return null;
+
+            _ctx.Entry(existing).CurrentValues.SetValues(pago);
             _ctx.SaveChanges();
-            return pago;
+            return existing;
         }
+
 
         public bool Delete(int id)
         {

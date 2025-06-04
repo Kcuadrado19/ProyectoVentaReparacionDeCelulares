@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ProyectoVentaReparacionDeCelulares.Clases;
 using ProyectoVentaReparacionDeCelulares.Interface;
 using ProyectoVentaReparacionDeCelulares.Models;
 using ProyectoVentaReparacionDeCelulares.Services;
@@ -29,11 +30,16 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
         [HttpPost, Route("")]
         public IHttpActionResult Create(Usuario u)
         {
+            var cypher = new clsCypher { Password = u.contrasena_hash }; // Usa el campo temporalmente para la contraseña plana
+            if (!cypher.CifrarClave()) return BadRequest("No se pudo cifrar la contraseña");
+
+            u.contrasena_hash = cypher.PasswordCifrado;
+            u.salt = cypher.Salt;
+
             var created = _srv.Create(u);
-            return CreatedAtRoute("DefaultApi",
-                new { controller = "usuarios", id = created.id_usuario },
-                created);
+            return CreatedAtRoute("DefaultApi", new { controller = "usuarios", id = created.id_usuario }, created);
         }
+
 
 
 

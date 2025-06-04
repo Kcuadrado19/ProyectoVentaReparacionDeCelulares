@@ -235,6 +235,7 @@
     <Compile Include="Controllers\ProductoProveedorController.cs" />
     <Compile Include="Controllers\SoporteClienteController.cs" />
     <Compile Include="Controllers\TecnicoController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VentaController.cs" />

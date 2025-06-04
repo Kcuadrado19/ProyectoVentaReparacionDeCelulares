@@ -1,8 +1,15 @@
 ﻿async function Ingresar() {
-    let BaseURL = "http://joseitm20251.runasp.net";//"http://localhost:54671";// "http://joseitm20251.runasp.net";//
-    let URL = BaseURL + "/api/Login/Ingresar";
+    let BaseURL = "http://proyectoventayreparacioncelulares.runasp.net/";
+   /* let BaseURL = "https://localhost:44365/";*/
+
+    let URL = BaseURL + "api/auth/login";
+
     const login = new Login($("#txtUsuario").val(), $("#txtClave").val());
+
     const Respuesta = await EjecutarComandoServicioRpta("POST", URL, login);
+
+
+
     if (Respuesta === undefined) {
         document.cookie = "token=0;path=/";
         //Hubo un error al procesar el comando
@@ -33,9 +40,29 @@
         }
     }
 }
+
+
 class Login {
-    constructor(Usuario, Clave) {
-        this.Usuario = Usuario;
-        this.Clave = Clave;
+    constructor(username, password) {
+        this.username = username;
+        this.password = password;
+    }
+}
+
+async function EjecutarComandoServicioRpta(metodo, url, datos) {
+    try {
+        const response = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        });
+
+        if (!response.ok) return undefined;
+        return await response.json();
+    } catch (error) {
+        console.error("Error al conectar con el servicio:", error);
+        return undefined;
     }
 }

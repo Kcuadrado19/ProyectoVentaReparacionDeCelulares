@@ -11,6 +11,8 @@ using ProyectoVentaReparacionDeCelulares.Services;
 namespace ProyectoVentaReparacionDeCelulares.Controllers
 {
     [RoutePrefix("api/ventas")]
+
+  
     public class VentaController : ApiController
     {
         private readonly IVentaService _srv = new VentaService();
