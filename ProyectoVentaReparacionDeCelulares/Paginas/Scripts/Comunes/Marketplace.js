@@ -220,10 +220,42 @@ function formatearPrecio(precio) {
 }
 
 function verDetalles(idProducto) {
-    // Aquí puedes implementar la lógica para mostrar detalles
-    console.log('Ver detalles del producto:', idProducto);
-    alert(`Viendo detalles del producto ${idProducto}`);
+    const producto = todosLosProductos.find(p => p.id_producto === idProducto);
+    if (!producto) return;
+
+    // Ocultar contenido y mostrar loader
+    $("#modalProductContent").hide();
+    $("#modalLoading").show();
+    $("#modalDetalleProducto").modal('show');
+
+    setTimeout(() => {
+        // Llenar campos
+        $("#detailProductName").text(producto.nombre_producto);
+        $("#modalProductTitle").text(producto.nombre_producto);
+        $("#detailProductDescription").text(producto.descripcion || 'Producto de alta calidad con características destacadas.');
+        $("#detailPrice").text(`$${formatearPrecio(producto.precio_unitario)}`);
+        $("#detailStock").text(`${producto.stock_disponible} unidades`);
+        $("#detailGarantia").text(`${producto.garantia_meses} meses`);
+        $("#detailCategoria").text(producto.categoria || 'General');
+        $("#detailProveedor").text(producto.nombre_proveedor || 'Sin especificar');
+        $("#detailFecha").text(producto.fecha_ingreso ? new Date(producto.fecha_ingreso).toLocaleDateString() : 'No registrada');
+
+        // Badges
+        const badges = [];
+        if (producto.stock_disponible > 50) badges.push(`<div class="product-badge-modal">Stock Alto</div>`);
+        if (producto.garantia_meses >= 12) badges.push(`<div class="product-badge-modal">Garantía Extendida</div>`);
+        $("#productBadges").html(badges.join(''));
+
+        // Características simuladas (o basadas en una propiedad si tienes)
+        const caracteristicas = producto.caracteristicas || ['Alta durabilidad', 'Compatibilidad universal', 'Diseño moderno'];
+        $("#productFeatures").html(caracteristicas.map(c => `<li>${c}</li>`).join(''));
+
+        // Mostrar contenido
+        $("#modalLoading").hide();
+        $("#modalProductContent").fadeIn();
+    }, 500); // Simula pequeña espera
 }
+
 
 function agregarAlCarrito(idProducto) {
     // Aquí puedes implementar la lógica del carrito
@@ -256,3 +288,6 @@ $(window).scroll(function () {
     const scroll = $(window).scrollTop();
     $('.main-header').css('transform', `translateY(${scroll * 0.5}px)`);
 });
+
+
+

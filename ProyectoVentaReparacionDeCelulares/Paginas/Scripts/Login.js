@@ -5,6 +5,7 @@
     }
 }
 
+// Función para ejecutar comandos de servicio
 async function EjecutarComandoServicioRpta(metodo, url, datos) {
     try {
         const response = await fetch(url, {
@@ -14,7 +15,6 @@ async function EjecutarComandoServicioRpta(metodo, url, datos) {
             },
             body: JSON.stringify(datos)
         });
-
         if (!response.ok) return undefined;
         return await response.json();
     } catch (error) {
@@ -23,32 +23,108 @@ async function EjecutarComandoServicioRpta(metodo, url, datos) {
     }
 }
 
+// Función mejorada de login
 async function Ingresar() {
-    const BaseURL = "http://proyectoventayreparacioncelulares.runasp.net/";
-    ///*let BaseURL = "http://localhost:5000/";*/
-    //let BaseURL = "https://localhost:44365/";
-    const URL = BaseURL + "api/auth/login";
+    const btnIngresar = $("#btnIngresar");
+    const btnText = $("#btnText");
+    const loadingSpinner = $(".loading-spinner");
+    const dvMensaje = $("#dvMensaje");
 
-    const login = new Login($("#txtUsuario").val(), $("#txtClave").val());
+    // Validación de campos
+    const usuario = $("#txtUsuario").val().trim();
+    const clave = $("#txtClave").val().trim();
 
-    const Respuesta = await EjecutarComandoServicioRpta("POST", URL, login);
+    if (!usuario || !clave) {
+        mostrarMensaje("Por favor, completa todos los campos", "error");
+        return;
+    }
 
-    if (Respuesta === undefined) {
-        document.cookie = "token=0;path=/";
-        $("#dvMensaje").removeClass("alert alert-success").addClass("alert alert-danger")
-            .html("No se pudo conectar con el servicio");
-    } else if (Respuesta.token) {
-        const extdays = 1;
-        const d = new Date();
-        d.setTime(d.getTime() + (extdays * 24 * 60 * 60 * 1000));
-        document.cookie = `token=${Respuesta.token};expires=${d.toUTCString()};path=/`;
+    // Estado de carga
+    btnIngresar.prop("disabled", true);
+    loadingSpinner.show();
+    btnText.text("Iniciando sesión...");
+    dvMensaje.hide();
 
-        $("#dvMensaje").removeClass("alert alert-danger").addClass("alert alert-success")
-            .html("Autenticación exitosa");
+    try {
+        const BaseURL = "https://proyectoventayreparacioncelulares.runasp.net/";
+        const URL = BaseURL + "api/auth/login";
+        const login = new Login(usuario, clave);
 
-        window.location.href = "Menu.html";
-    } else {
-        $("#dvMensaje").removeClass("alert alert-success").addClass("alert alert-danger")
-            .html("Usuario o contraseña incorrectos");
+        const Respuesta = await EjecutarComandoServicioRpta("POST", URL, login);
+
+        if (Respuesta === undefined) {
+            document.cookie = "token=0;path=/";
+            mostrarMensaje("No se pudo conectar con el servicio. Verifica tu conexión a internet.", "error");
+        } else if (Respuesta.token) {
+            const extdays = 1;
+            const d = new Date();
+            d.setTime(d.getTime() + (extdays * 24 * 60 * 60 * 1000));
+            document.cookie = `token=${Respuesta.token};expires=${d.toUTCString()};path=/`;
+
+            mostrarMensaje("¡Autenticación exitosa! Redirigiendo...", "success");
+
+            setTimeout(() => {
+                window.location.href = "Marketplace.html";
+            }, 1500);
+        } else {
+            mostrarMensaje("Usuario o contraseña incorrectos. Inténtalo nuevamente.", "error");
+        }
+    } catch (error) {
+        console.error("Error durante el login:", error);
+        mostrarMensaje("Error inesperado. Inténtalo más tarde.", "error");
+    } finally {
+        // Restaurar estado del botón
+        setTimeout(() => {
+            btnIngresar.prop("disabled", false);
+            loadingSpinner.hide();
+            btnText.text("Iniciar Sesión");
+        }, 1000);
     }
 }
+
+// Función para mostrar mensajes
+function mostrarMensaje(mensaje, tipo) {
+    const dvMensaje = $("#dvMensaje");
+    dvMensaje.removeClass("alert-success alert-danger");
+
+    if (tipo === "success") {
+        dvMensaje.addClass("alert-success");
+    } else {
+        dvMensaje.addClass("alert-danger");
+    }
+
+    dvMensaje.html(`<i class="fas fa-${tipo === 'success' ? 'check-circle' : 'exclamation-triangle'} mr-2"></i>${mensaje}`);
+    dvMensaje.show();
+}
+
+// Toggle para mostrar/ocultar contraseña
+$("#togglePassword").click(function () {
+    const passwordField = $("#txtClave");
+    const type = passwordField.attr("type") === "password" ? "text" : "password";
+    passwordField.attr("type", type);
+
+    $(this).removeClass("fa-eye fa-eye-slash");
+    $(this).addClass(type === "password" ? "fa-eye" : "fa-eye-slash");
+});
+
+// Enter para enviar formulario
+$("#loginForm input").keypress(function (e) {
+    if (e.which === 13) {
+        Ingresar();
+    }
+});
+
+// Efecto de focus mejorado
+$(".form-control").on("focus", function () {
+    $(this).parent().find(".input-icon").css("color", "#fe889f");
+}).on("blur", function () {
+    $(this).parent().find(".input-icon").css("color", "#6c757d");
+});
+
+// Animación de carga de página
+$(document).ready(function () {
+    $("body").css("overflow", "hidden");
+    setTimeout(() => {
+        $("body").css("overflow", "auto");
+    }, 600);
+});
