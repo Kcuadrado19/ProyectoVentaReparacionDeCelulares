@@ -2,7 +2,7 @@
     $("#dvMenu").load("../Paginas/Menu.html");
 
     $.ajax({
-        url: "http://proyectoventayreparacioncelulares.runasp.net/api/productos", // ajusta si es necesario
+        url: "https://proyectoventayreparacioncelulares.runasp.net/api/productos", // ajusta si es necesario
         method: "GET",
         success: function (productos) {
             let html = '';

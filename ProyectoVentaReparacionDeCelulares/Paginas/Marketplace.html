@@ -4,82 +4,89 @@
     <meta charset="UTF-8">
     <title>Marketplace</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
         }
 
         .marketplace-header {
             text-align: center;
-            margin: 30px 0;
+            margin: 40px 0;
+            color: #343a40;
         }
 
         .card {
-            width: 300px;
-            margin: 15px;
             border: none;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
             .card:hover {
-                transform: scale(1.03);
+                transform: translateY(-5px);
             }
 
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
+        .card-body {
+            padding: 25px;
         }
 
-        .btn-comprar {
-            background-color: #28a745;
-            color: white;
+        .btn-ver {
+            background-color: #007bff;
             border: none;
+            border-radius: 20px;
+            padding: 8px 18px;
+            font-size: 14px;
+            transition: 0.3s ease-in-out;
         }
 
-            .btn-comprar:hover {
-                background-color: #218838;
+            .btn-ver:hover {
+                background-color: #0056b3;
             }
+
+        .contenedor-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Catálogo de Productos del Marketplace</h2>
-        <div id="contenedorProductos" class="d-flex flex-wrap justify-content-center"></div>
+    <div class="container">
+        <h2 class="marketplace-header">Catálogo de Productos del Marketplace</h2>
+        <div id="contenedorProductos" class="contenedor-grid"></div>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         jQuery(function () {
-            $.get("http://proyectoventayreparacioncelulares.runasp.net/api/productos-proveedor", function (data) {
+            $.get("https://proyectoventayreparacioncelulares.runasp.net/api/productos-proveedor", function (data) {
                 const contenedor = $("#contenedorProductos");
                 contenedor.empty();
 
                 data.forEach(p => {
                     contenedor.append(`
-                    <div class="card m-3 shadow" style="width: 20rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">${p.nombre_producto}</h5>
-                            <p class="card-text text-muted">${p.descripcion}</p>
-                            <p><strong>Precio:</strong> $${p.precio_unitario}</p>
-                            <p><strong>Stock disponible:</strong> ${p.stock_disponible}</p>
-                            <p><strong>Garantía:</strong> ${p.garantia_meses} meses</p>
-                            <button class="btn btn-primary">Ver detalles</button>
-                        </div>
-                    </div>
-                `);
+                                <div class="card m-3" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${p.nombre_producto}</h5>
+                                        <p class="card-text text-muted">${p.descripcion}</p>
+                                        <p><strong>Precio:</strong> $${p.precio_unitario}</p>
+                                        <p><strong>Stock disponible:</strong> ${p.stock_disponible}</p>
+                                        <p><strong>Garantía:</strong> ${p.garantia_meses} meses</p>
+                                        <button class="btn btn-ver">Ver detalles</button>
+                                    </div>
+                                </div>
+                            `);
                 });
             }).fail(function () {
                 $("#contenedorProductos").html("<p class='text-danger'>No se pudo cargar el catálogo.</p>");
             });
         });
-
     </script>
+
 </body>
 </html>
 
