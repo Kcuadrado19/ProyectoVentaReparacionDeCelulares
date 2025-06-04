@@ -1,27 +1,407 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Facturación</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8" />
+    <title>Gestión de Facturas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: linear-gradient(135deg, #fe889f 0%, #ff6b87 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(254, 136, 159, 0.3);
+        }
+
+            .main-header h2 {
+                color: white;
+                font-weight: 700;
+                font-size: 2.5rem;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin: 0;
+            }
+
+        .search-container {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(254, 136, 159, 0.2);
+        }
+
+        #buscadorFactura {
+            border: 2px solid #fe889f;
+            border-radius: 15px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(254, 136, 159, 0.1);
+        }
+
+            #buscadorFactura:focus {
+                border-color: #ff6b87;
+                box-shadow: 0 0 0 0.2rem rgba(254, 136, 159, 0.25);
+                transform: translateY(-2px);
+            }
+
+        .btn-nueva-factura {
+            background: linear-gradient(135deg, #fe889f 0%, #ff6b87 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(254, 136, 159, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+            .btn-nueva-factura:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(254, 136, 159, 0.6);
+                color: white;
+            }
+
+            .btn-nueva-factura:active {
+                transform: translateY(-1px);
+            }
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 0.75rem;
+            width: 320px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(135deg, #fe889f 0%, #ff6b87 100%);
+            }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 40px rgba(254, 136, 159, 0.2);
+            }
+
+        .card-title {
+            color: #fe889f;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #f8f9fa;
+            padding-bottom: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 3px solid #fe889f;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-weight: 700;
+            color: #495057;
+            font-size: 1rem;
+        }
+
+        .money-value {
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            gap: 10px;
+        }
+
+        .btn-action {
+            flex: 1;
+            border-radius: 12px;
+            padding: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            border-color: #17a2b8;
+            color: white;
+        }
+
+            .btn-edit:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4);
+                color: white;
+            }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border-color: #dc3545;
+            color: white;
+        }
+
+            .btn-delete:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+                color: white;
+            }
+
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #fe889f 0%, #ff6b87 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus {
+                border-color: #fe889f;
+                box-shadow: 0 0 0 0.2rem rgba(254, 136, 159, 0.25);
+            }
+
+        .modal-footer {
+            border-top: none;
+            padding: 1.5rem 2rem 2rem;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #fe889f 0%, #ff6b87 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+            .btn-save:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(254, 136, 159, 0.4);
+                color: white;
+            }
+
+        .btn-cancel {
+            background: white;
+            border: 2px solid #6c757d;
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+            .btn-cancel:hover {
+                background: #6c757d;
+                color: white;
+                transform: translateY(-2px);
+            }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fe889f;
+            font-size: 1.2rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin: 3rem 0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .search-wrapper {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn-nueva-factura {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .card {
+                width: calc(100% - 1.5rem);
+                margin: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <h2 class="text-center">Facturación</h2>
-        <table class="table table-bordered mt-4">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Fecha</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpoFacturas"></tbody>
-        </table>
+    <div class="main-header">
+        <div class="container text-center">
+            <h2><i class="fas fa-file-invoice-dollar mr-3"></i>Gestión de Facturas</h2>
+        </div>
     </div>
 
+    <div class="container">
+        <div class="search-container">
+            <div class="search-wrapper">
+                <div style="position: relative; flex: 1;">
+                    <input type="text" id="buscadorFactura" class="form-control" placeholder="🔍 Buscar por número de factura, número de venta o fecha..." />
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <button class="btn btn-nueva-factura" onclick="mostrarFormulario()">
+                    <i class="fas fa-plus mr-2"></i>Nueva Factura
+                </button>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center" id="contenedorFacturas">
+            <!-- Aquí se insertarán las facturas -->
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <i class="fas fa-search fa-3x mb-3" style="color: #fe889f;"></i>
+            <p>No se encontraron facturas que coincidan con tu búsqueda</p>
+        </div>
+    </div>
+
+    <!-- Modal para crear/editar -->
+    <div class="modal fade" id="modalFactura" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="formFactura" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-invoice mr-2"></i>
+                        <span id="modalTitle">Nueva Factura Marketplace</span>
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id_factura" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_venta"><i class="fas fa-shopping-cart mr-2"></i>ID Venta</label>
+                                <input type="number" id="id_venta" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fecha_factura"><i class="fas fa-calendar mr-2"></i>Fecha</label>
+                                <input type="date" id="fecha_factura" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total_pagado"><i class="fas fa-dollar-sign mr-2"></i>Total Pagado</label>
+                                <input type="number" id="total_pagado" class="form-control" step="0.01" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total_proveedor"><i class="fas fa-truck mr-2"></i>Total Proveedor</label>
+                                <input type="number" id="total_proveedor" class="form-control" step="0.01" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total_comision"><i class="fas fa-percentage mr-2"></i>Comisión</label>
+                                <input type="number" id="total_comision" class="form-control" step="0.01" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-save">
+                        <i class="fas fa-save mr-2"></i>Guardar
+                    </button>
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">
+                        <i class="fas fa-times mr-2"></i>Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="../Scripts/Facturas.js"></script>
-</body>
-</html>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../Paginas/Scripts/Comunes/Facturas.js"></script>
+  
