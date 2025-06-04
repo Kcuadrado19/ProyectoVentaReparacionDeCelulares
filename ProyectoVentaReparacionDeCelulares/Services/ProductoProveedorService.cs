@@ -24,6 +24,12 @@ namespace ProyectoVentaReparacionDeCelulares.Services
             return p;
         }
 
+        public IEnumerable<ProductoProveedor> GetAll()
+        {
+            return _ctx.ProductoProveedors.ToList();
+        }
+
+
         public ProductoProveedor Update(ProductoProveedor p)
         {
             _ctx.Entry(p).State = System.Data.Entity.EntityState.Modified;

@@ -40,8 +40,16 @@ namespace ProyectoVentaReparacionDeCelulares.Controllers
         }
 
 
+        [HttpGet]
+        [Route("~/api/productos-proveedor")]
+        public IEnumerable<ProductoProveedor> GetAll()
+        {
+            return _srv.GetAll();
+        }
 
-        
+
+
+
         [HttpPut, Route("{id:int}")]
        public IHttpActionResult Update(int provId, int id, ProductoProveedor p)
         {

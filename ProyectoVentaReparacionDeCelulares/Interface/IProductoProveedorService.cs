@@ -8,6 +8,7 @@ namespace ProyectoVentaReparacionDeCelulares.Interface
 {
     public interface IProductoProveedorService
     {
+        IEnumerable<ProductoProveedor> GetAll();
         IEnumerable<ProductoProveedor> GetByProveedor(int proveedorId);
         ProductoProveedor Create(ProductoProveedor p);
         ProductoProveedor Update(ProductoProveedor p);
